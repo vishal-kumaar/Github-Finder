@@ -64,7 +64,44 @@ function fetchUser(username) {
   xhr.send();
 }
 
+function fetchProfile(sessionToken, callback) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.open("GET", `http://localhost:4000/api/user`, true);
+
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.setRequestHeader("Authorization", sessionToken);
+  xhr.responseType = "json";
+
+  xhr.onprogress = function () {
+    console.log("Loading...");
+  };
+
+  xhr.onload = function () {
+    if (this.response?.success) {
+      callback(null, this.response);
+    } else {
+      callback(this.response?.message, null);
+    }
+  };
+
+  xhr.send();
+}
+
 submit.addEventListener("click", (event) => {
   event.preventDefault();
-  fetchUser(username.value);
+  const sessionToken = sessionStorage.getItem("sessionToken");
+  fetchProfile(sessionToken, (err, res) => {
+    if (err) {
+      window.alert(err);
+      return;
+    }
+
+    if (!res.success) {
+      window.alert(res.message);
+      return;
+    }
+    
+    fetchUser(username.value);
+  });
 });
