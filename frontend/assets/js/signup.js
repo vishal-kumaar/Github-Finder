@@ -7,7 +7,7 @@ const signup = document.getElementById("signup");
 function signupUser(data, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("POST", `http://localhost:4000/api/auth/signup`, true);
+  xhr.open("POST", `https://api-githubfinder.vercel.app/api/auth/signup`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.responseType = "json";

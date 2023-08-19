@@ -67,7 +67,7 @@ function fetchUser(username) {
 function fetchProfile(sessionToken, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", `http://localhost:4000/api/user`, true);
+  xhr.open("GET", `https://api-githubfinder.vercel.app/api/user`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.setRequestHeader("Authorization", sessionToken);

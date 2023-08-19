@@ -5,7 +5,7 @@ const login = document.getElementById("login");
 function loginUser(data, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("POST", `http://localhost:4000/api/auth/login`, true);
+  xhr.open("POST", `https://api-githubfinder.vercel.app/api/auth/login`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.responseType = "json";
