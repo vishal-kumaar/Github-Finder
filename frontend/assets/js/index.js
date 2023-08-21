@@ -1,5 +1,8 @@
-const username = document.getElementById("username");
-const submit = document.getElementById("submit");
+const username = document.getElementById("user-name");
+const useremail = document.getElementById("user-email");
+const navLinks = document.querySelector(".nav-links").children;
+const usernameInput = document.getElementById("username-input");
+const userForm = document.getElementById("user-form");
 const user = document.getElementById("user");
 const instruction = document.getElementById("instruction");
 const profilePic = document.getElementById("profile_pic");
@@ -22,42 +25,20 @@ function displayData(data) {
   bio.textContent = data.bio;
 }
 
-function fetchUser(username) {
+function fetchUser(username, callback) {
   const xhr = new XMLHttpRequest();
 
   xhr.open("GET", `https://api.github.com/users/${username}`, true);
 
-  xhr.onreadystatechange = function () {
-    instruction.style.display = "flex";
-    switch (this.readyState) {
-      case 0:
-        instruction.textContent = "Connecting...";
-        break;
-      case 1:
-        instruction.textContent = "Connecting...";
-        break;
-      case 2:
-        instruction.textContent = "Loading...";
-        break;
-      case 3:
-        instruction.textContent = "Loading...";
-        break;
-      case 4:
-        instruction.textContent = "Request Complete...";
-        break;
-    }
-  };
+  xhr.responseType = "json";
 
-  xhr.onload = function () {
-    if (this.status === 200) {
-      const data = JSON.parse(this.responseText);
-      instruction.style.display = "none";
-      displayData(data);
-    } else {
-      instruction.style.display = "flex";
-      user.style.display = "none";
-      instruction.classList.add("error");
-      instruction.textContent = "User Not Found.";
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status === 200) {
+        callback(null, this.response);
+      } else {
+        callback("User Not Found.", null);
+      }
     }
   };
 
@@ -73,10 +54,6 @@ function fetchProfile(sessionToken, callback) {
   xhr.setRequestHeader("Authorization", sessionToken);
   xhr.responseType = "json";
 
-  xhr.onprogress = function () {
-    console.log("Loading...");
-  };
-
   xhr.onload = function () {
     if (this.response?.success) {
       callback(null, this.response);
@@ -88,9 +65,31 @@ function fetchProfile(sessionToken, callback) {
   xhr.send();
 }
 
-submit.addEventListener("click", (event) => {
+const sessionToken = sessionStorage.getItem("sessionToken");
+
+if (sessionToken) {
+  navLinks[0].style.display = "none";
+  navLinks[1].style.display = "none";
+  navLinks[2].style.display = "none";
+  navLinks[3].style.display = "block";
+} else {
+  navLinks[0].style.display = "inline-block";
+  navLinks[1].style.display = "inline-block";
+  navLinks[2].style.display = "inline-block";
+  navLinks[3].style.display = "none";
+}
+
+fetchProfile(sessionToken, (err, res) => {
+  if (err || !res?.success) {
+    return;
+  }
+
+  username.textContent = res.user.name;
+  useremail.textContent = res.user.email;
+});
+
+userForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const sessionToken = sessionStorage.getItem("sessionToken");
   fetchProfile(sessionToken, (err, res) => {
     if (err) {
       window.alert(err);
@@ -99,9 +98,25 @@ submit.addEventListener("click", (event) => {
 
     if (!res.success) {
       window.alert(res.message);
-      return;
     }
-    
-    fetchUser(username.value);
+
+    fetchUser(usernameInput.value, (err, res) => {
+      if (err) {
+        document.body.style.backgroundColor = "darkred";
+        instruction.style.display = "flex";
+        user.style.display = "none";
+        instruction.textContent = "User Not Found.";
+        return;
+      }
+
+      instruction.style.display = "none";
+      document.body.style.backgroundColor = "#1E194D";
+      displayData(res);
+    });
   });
+});
+
+navLinks[3].addEventListener("click", function () {
+  sessionStorage.removeItem("sessionToken");
+  window.location.reload();
 });

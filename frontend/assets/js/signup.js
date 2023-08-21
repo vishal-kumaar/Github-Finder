@@ -1,8 +1,7 @@
 const nameInput = document.getElementById("name-input");
 const emailInput = document.getElementById("email-input");
-const dobInput = document.getElementById("dob-input");
 const passwordInput = document.getElementById("password-input");
-const signup = document.getElementById("signup");
+const signupFrom = document.getElementById("signup-form");
 
 function signupUser(data, callback) {
   const xhr = new XMLHttpRequest();
@@ -27,13 +26,12 @@ function signupUser(data, callback) {
   xhr.send(JSON.stringify(data));
 }
 
-signup.addEventListener("click", function (event) {
+signupFrom.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const data = {
     name: nameInput.value,
     email: emailInput.value,
-    dob: dobInput.value,
     password: passwordInput.value,
   };
 

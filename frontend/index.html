@@ -7,9 +7,31 @@
     <title>Github User Finder</title>
   </head>
   <body>
+    <div id="navbar">
+      <div class="user-info">
+        <img
+          src="./assets/images/user-icon.svg"
+          alt="user-icon"
+          id="user-icon" />
+        <div>
+          <p id="user-name">Unknown User</p>
+          <p id="user-email">unkonwn@unknown.com</p>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="login.html" class="link">Login</a>
+        <div class="v-seperator"></div>
+        <a href="signup.html" class="link">Signup</a>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
     <div class="form-area">
-      <form>
-        <input type="text" placeholder="Enter User Name" id="username" />
+      <form id="user-form">
+        <input
+          type="text"
+          placeholder="Enter User Name"
+          id="username-input"
+          required />
         <button id="submit" type="submit">Get Data</button>
       </form>
     </div>

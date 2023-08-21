@@ -9,9 +9,60 @@ body {
     background-color: #1E194D;
 }
 
+#navbar {
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.user-info {
+    display: flex;
+    gap: 0 10px;
+    align-items: center;
+}
+
+#user-icon {
+    width: 38px;
+    height: 38px;
+}
+
+.link {
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+}
+
+.v-seperator {
+    height: 12px;
+    width: 1px;
+    margin: 0 3px;
+    background: #000;
+    display: inline-block;
+}
+
+#logout-btn {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    cursor: pointer;
+    display: none;
+}
+
 .form-area {
     background-color: #fff;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 form {
@@ -19,7 +70,7 @@ form {
     margin: 0 auto;
 }
 
-#username {
+#username-input {
     border: 1px solid #000;
     height: 2.5rem;
     padding: 0 10px;
@@ -34,7 +85,7 @@ form {
     border: 1px solid #1E194D;
     width: 10rem;
     cursor: pointer;
-    margin-left: -4px;
+    margin-left: -5px;
 }
 
 #user {
@@ -43,6 +94,7 @@ form {
     color: #fff;
     margin-top: 3rem;
     display: none;
+    padding: 0 0 50px 0;
 }
 
 #user img {
@@ -87,17 +139,12 @@ form {
     overflow: hidden;
 }
 
-#instruction,
-.error {
+#instruction {
     height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-}
-
-.error {
-    color: #ff0000 !important;
 }
 
 @media screen and (max-width: 550px) {

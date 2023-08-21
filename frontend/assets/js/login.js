@@ -1,6 +1,6 @@
 const emailInput = document.getElementById("email-input");
 const passwordInput = document.getElementById("password-input");
-const login = document.getElementById("login");
+const loginForm = document.getElementById("login-form");
 
 function loginUser(data, callback) {
   const xhr = new XMLHttpRequest();
@@ -25,7 +25,7 @@ function loginUser(data, callback) {
   xhr.send(JSON.stringify(data));
 }
 
-login.addEventListener("click", function (event) {
+loginForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const data = {

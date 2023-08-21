@@ -3,7 +3,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import CustomError from "../utils/CustomError.js";
 
 const signup = asyncHandler(async (req, res) => {
-  const { name, email, dob, password } = req.body;
+  const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
     throw new CustomError("Name, email, and password are required", 400);
@@ -18,7 +18,6 @@ const signup = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    dob,
     password,
   });
 
