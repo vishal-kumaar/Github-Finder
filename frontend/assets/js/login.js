@@ -41,6 +41,6 @@ loginForm.addEventListener("submit", function (event) {
 
     sessionStorage.setItem("sessionToken", `Bearer ${res.token}`);
     window.alert(res.message);
-    window.location.href = "/";
+    window.location.href = "index.html";
   });
 });

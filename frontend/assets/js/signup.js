@@ -46,6 +46,6 @@ signupFrom.addEventListener("submit", function (event) {
     }
 
     window.alert(res.message);
-    window.location.href = "/login.html";
+    window.location.href = "login.html";
   });
 });

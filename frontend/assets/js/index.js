@@ -15,7 +15,6 @@ const bio = document.getElementById("bio");
 
 function displayData(data) {
   user.style.display = "block";
-
   profilePic.src = data.avatar_url;
   name.textContent = data.name;
   userLocation.textContent = data.location;
@@ -85,6 +84,7 @@ fetchProfile(sessionToken, (err, res) => {
   }
 
   username.textContent = res.user.name;
+  useremail.style.display = "block";
   useremail.textContent = res.user.email;
 });
 
