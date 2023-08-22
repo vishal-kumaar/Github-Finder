@@ -1,3 +1,4 @@
+import config from "./config.js";
 const username = document.getElementById("user-name");
 const useremail = document.getElementById("user-email");
 const navLinks = document.querySelector(".nav-links").children;
@@ -47,7 +48,7 @@ function fetchUser(username, callback) {
 function fetchProfile(sessionToken, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", `https://api-githubfinder.vercel.app/api/user`, true);
+  xhr.open("GET", `${config.baseUrl}/api/user`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.setRequestHeader("Authorization", sessionToken);
@@ -64,7 +65,9 @@ function fetchProfile(sessionToken, callback) {
   xhr.send();
 }
 
-const sessionToken = sessionStorage.getItem("sessionToken");
+const sessionToken =
+  sessionStorage.getItem("sessionToken") ||
+  localStorage.getItem("sessionToken");
 
 if (sessionToken) {
   navLinks[0].style.display = "none";
@@ -118,5 +121,6 @@ userForm.addEventListener("submit", (event) => {
 
 navLinks[3].addEventListener("click", function () {
   sessionStorage.removeItem("sessionToken");
+  localStorage.removeItem("sessionToken");
   window.location.reload();
 });

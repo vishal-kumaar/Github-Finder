@@ -39,6 +39,18 @@ body {
     cursor: pointer;
 }
 
+.checkbox-area{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-area label{
+    font-size: 14px;
+    margin-left: 3px;
+}
+
 .para {
     margin-top: 20px;
     font-size: 13px;

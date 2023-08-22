@@ -4,8 +4,7 @@ import User from "../schemas/user.schema.js";
 import jwt from "jsonwebtoken";
 
 const isLoggedIn = asyncHandler(async (req, _res, next) => {
-  const token =
-    req.header("Authorization")?.replace("Bearer ", "") || req.cookies?.token;
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
     throw new CustomError("Not authorized to access this route.", 401);

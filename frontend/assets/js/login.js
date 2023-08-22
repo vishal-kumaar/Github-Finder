@@ -1,11 +1,13 @@
+import config from "./config.js";
 const emailInput = document.getElementById("email-input");
 const passwordInput = document.getElementById("password-input");
 const loginForm = document.getElementById("login-form");
+const rememberMe = document.getElementById("remember-me");
 
 function loginUser(data, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("POST", `https://api-githubfinder.vercel.app/api/auth/login`, true);
+  xhr.open("POST", `${config.baseUrl}/api/auth/login`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.responseType = "json";
@@ -39,7 +41,12 @@ loginForm.addEventListener("submit", function (event) {
       return;
     }
 
-    sessionStorage.setItem("sessionToken", `Bearer ${res.token}`);
+    if (rememberMe.checked) {
+      localStorage.setItem("sessionToken", `Bearer ${res.token}`);
+    } else {
+      sessionStorage.setItem("sessionToken", `Bearer ${res.token}`);
+    }
+
     window.alert(res.message);
     window.location.href = "index.html";
   });

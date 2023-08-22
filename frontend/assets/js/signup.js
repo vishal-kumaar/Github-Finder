@@ -1,3 +1,4 @@
+import config from "./config.js";
 const nameInput = document.getElementById("name-input");
 const emailInput = document.getElementById("email-input");
 const passwordInput = document.getElementById("password-input");
@@ -6,7 +7,7 @@ const signupFrom = document.getElementById("signup-form");
 function signupUser(data, callback) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("POST", `https://api-githubfinder.vercel.app/api/auth/signup`, true);
+  xhr.open("POST", `${config.baseUrl}/api/auth/signup`, true);
 
   xhr.setRequestHeader("content-type", "application/json");
   xhr.responseType = "json";
