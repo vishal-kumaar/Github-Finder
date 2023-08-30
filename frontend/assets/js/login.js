@@ -42,7 +42,9 @@ loginForm.addEventListener("submit", function (event) {
     }
 
     if (rememberMe.checked) {
-      localStorage.setItem("sessionToken", `Bearer ${res.token}`);
+      document.cookie = `sessionToken=${res.token.value}; expires=${new Date(
+        Date.now() + parseInt(res.token.expiresIn) * 24 * 60 * 60 * 1000
+      )}; path="/"`;
     } else {
       sessionStorage.setItem("sessionToken", `Bearer ${res.token}`);
     }

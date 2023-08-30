@@ -65,9 +65,23 @@ function fetchProfile(sessionToken, callback) {
   xhr.send();
 }
 
+function getCookie(key) {
+  const cookieList = document.cookie.split("; ");
+  for (let val of cookieList) {
+    const cookie = val.split("=");
+    if (cookie[0] === key) {
+      return cookie[1];
+    }
+  }
+}
+
+function deleteCookie(cookieName) {
+  const pastDate = new Date(0).toUTCString();
+  document.cookie = `${cookieName}=; expires=${pastDate}; path=/;`;
+}
+
 const sessionToken =
-  sessionStorage.getItem("sessionToken") ||
-  localStorage.getItem("sessionToken");
+  sessionStorage.getItem("sessionToken") || getCookie("sessionToken");
 
 if (sessionToken) {
   navLinks[0].style.display = "none";
@@ -121,6 +135,6 @@ userForm.addEventListener("submit", (event) => {
 
 navLinks[3].addEventListener("click", function () {
   sessionStorage.removeItem("sessionToken");
-  localStorage.removeItem("sessionToken");
+  deleteCookie("sessionToken");
   window.location.reload();
 });

@@ -29,7 +29,10 @@ const login = asyncHandler(async (req, res) => {
     success: true,
     message: "Login Successful",
     user: user,
-    token: token,
+    token: {
+      value: token,
+      expiresIn: process.env.JWTEXPIRY,
+    },
   });
 });
 

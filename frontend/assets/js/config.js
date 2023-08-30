@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: "https://api-githubfinder.vercel.app/",
+  baseUrl: "http://localhost:4000",
 };
 
 export default config;
